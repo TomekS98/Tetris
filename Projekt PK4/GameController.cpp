@@ -11,16 +11,14 @@ GameController::GameController(BlocksGenerator blocksGenerator, PlayField playFi
 {
 	this->blocksGenerator = blocksGenerator;
 	this->playField = playField;
-
-
 	hasLostGame = false;
 }
 
-void GameController::Tick(sf::Clock &clock, float &timer, float &delay, sf::Event &e, sf::RenderWindow& w)
+void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::RenderWindow& w)
 {
 	float time = clock.getElapsedTime().asSeconds();
 	clock.restart();
-	timer += time;
+	timer.setTimer(time);
 
 	if (hasLostGame)
 	{
@@ -55,9 +53,11 @@ void GameController::Tick(sf::Clock &clock, float &timer, float &delay, sf::Even
 			{
 				currentBlock.Rotate();
 			}
-			if (e.key.code == sf::Keyboard::Down)
+			if (e.key.code == sf::Keyboard::Down && !timer.checkIfItsSpeededUp())
 			{
-				delay = 0.3;
+				timer.setSpeed(Speed::Fast,timer);
+				//timer.setDelayCausedByKeyDown();
+
 			}
 			else if (e.key.code == sf::Keyboard::Left && currentBlock.CanMoveHorizontally(playField, Direction::Left))
 			{
@@ -72,10 +72,16 @@ void GameController::Tick(sf::Clock &clock, float &timer, float &delay, sf::Even
 		}
 	}
 	
-	if (timer>delay && currentBlock.CanMoveDown(playField))
+	
+	if (timer.getTimer()>timer.getDelay() && currentBlock.CanMoveDown(playField))
 	{
+		if (timer.checkIfItsSpeededUp())
+		{
+			timer.setSpeed(Speed::Regular, timer);
+			//timer.resetDelayAfterKeyDown();
+		}
 		currentBlock.MoveDown();
-		timer = 0;
+		timer.resetTimer();
 	}
 }
 

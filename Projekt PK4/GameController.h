@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <time.h>
 #include "BlocksGenerator.h"
+#include "Scoreboard.h"
+#include "Timer.h"
 
 class GameController
 {
@@ -13,7 +15,7 @@ class GameController
 public:
 	GameController();
 	GameController(BlocksGenerator blocksGenerator, PlayField playField);
-	void Tick(sf::Clock  &clock, float  &timer, float & delay,sf::Event &e, sf::RenderWindow &w);
+	void Tick(sf::Clock  &clock, Timer &Timer,sf::Event &e, sf::RenderWindow &w);
 	Block GetCurrentBlock();
 	PlayField GetPlayField();
 	bool IsInGame();
