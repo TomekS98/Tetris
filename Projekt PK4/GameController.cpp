@@ -40,7 +40,7 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 		_scoreboard.updateScore(100,_level);
 	}
 
-	if (!currentBlock.CanMoveDown(playField))
+	if (!currentBlock.CanMoveDown(playField)&& _canEnterHere)
 	{
 		for (int i = 0; i < 4; i++)
 		{

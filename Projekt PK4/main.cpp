@@ -11,7 +11,6 @@
 const int TILES_PIXEL_COUNT = 32;
 const int COLOR_MULTIPLIER = 32;
 
-//float timer = 0, delay = 0.5;
 
 int main()
 {
@@ -22,15 +21,37 @@ int main()
 	sf::VideoMode VMode(WIDTH * TILES_PIXEL_COUNT + 180, HEIGHT * TILES_PIXEL_COUNT+100, 32);
 	window.create(VMode, "Tetris", sf::Style::Close);
 
+
+	sf::Color gray_color(211, 211, 211);
 	sf::Texture tilesTexture;
-	tilesTexture.loadFromFile("images/tiles.png");
+	if (!tilesTexture.loadFromFile("images/tiles.png"))
+	{
+		return -1;
+	}
 	sf::Sprite tilesSprite = sf::Sprite(tilesTexture);
 	tilesSprite.setTextureRect(sf::IntRect(0, 0, TILES_PIXEL_COUNT, TILES_PIXEL_COUNT));
-	sf::Font _font;
-	sf::Texture background;
-	background.loadFromFile("images/tetrisbackground.png");
-	sf::Sprite s_background(background);
 
+	sf::Texture background;
+	if (!background.loadFromFile("images/tetrisbackground.png"))
+	{
+		return -1;
+	}
+	sf::Sprite s_background(background);
+	sf::Texture frame_pion;
+	if (!frame_pion.loadFromFile("images/frame_pion.png"))
+	{
+		return -1;
+	}
+	sf::Texture frame_poziom;
+	if (!frame_poziom.loadFromFile("images/frame_poziom.png"))
+	{
+		return -1;
+	}
+	sf::Sprite s_frame_poziom = sf::Sprite(frame_poziom);
+	sf::Sprite s_frame_pion = sf::Sprite(frame_pion);
+	s_frame_pion.setPosition(315, 0);
+	s_frame_poziom.setPosition(0, 635);
+	sf::Font _font;
 	if (!_font.loadFromFile("fonts/font.ttf"))
 	{
 		return -1;
@@ -47,14 +68,14 @@ int main()
 	levelDisplayREPLACEMENT.setFont(_font);
 	levelDisplayREPLACEMENT.setString(_level.getlevelmsg());
 	levelDisplayREPLACEMENT.setCharacterSize(52);
-	levelDisplayREPLACEMENT.setFillColor(sf::Color::Black);
+	levelDisplayREPLACEMENT.setFillColor(gray_color);
 	levelDisplayREPLACEMENT.setPosition(380, 185);
 
 	sf::Text scoreboardDisplayREPLACEMENT;
 	scoreboardDisplayREPLACEMENT.setFont(_font);
 	scoreboardDisplayREPLACEMENT.setString(_scoreboard.getscoremsg());
 	scoreboardDisplayREPLACEMENT.setCharacterSize(52);
-	scoreboardDisplayREPLACEMENT.setFillColor(sf::Color::White);
+	scoreboardDisplayREPLACEMENT.setFillColor(gray_color);
 	scoreboardDisplayREPLACEMENT.setPosition(370, 65);
 
 	window.setFramerateLimit(15);
@@ -95,7 +116,8 @@ int main()
 				window.draw(tilesSprite);
 			}
 		}
-
+		window.draw(s_frame_poziom);
+		window.draw(s_frame_pion);
 		window.display();
 	}
 
@@ -109,7 +131,7 @@ int main()
 * X | DODAC SOUNDS									*
 * X | DODAC GAMEOVER								*
 *********************ZAAWANSOWANE********************
-* O | NAPRAWIC WYSWIETLANIE SCORE I POZIOM			*
+* X | NAPRAWIC WYSWIETLANIE SCORE I POZIOM			*
 * O | MENU											*
 * O | HIGHHSCORES									*
 ****************************************************/
