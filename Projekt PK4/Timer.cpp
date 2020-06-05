@@ -6,9 +6,9 @@ Timer::Timer()
 	_delay = 0.5;
 	_isSpeededUp=false;
 }
-void Timer::setDelayCausedByLevel(float varThatsUsedToDecreaseDelay)
+void Timer::setDelayCausedByLevel()
 {
-	_delay -= varThatsUsedToDecreaseDelay;
+	_delay *= 0.95;
 }
 
 void Timer::setDelayCausedByKeyDown() 

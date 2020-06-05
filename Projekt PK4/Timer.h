@@ -11,7 +11,7 @@ class Timer
 	bool _isSpeededUp;
 public:
 	Timer();
-	void setDelayCausedByLevel(float varThatsUsedToDecreaseDelay);
+	void setDelayCausedByLevel();
 	void setDelayCausedByKeyDown();
 	void resetDelayAfterKeyDown();
 	void setTimer(float _time);
@@ -20,6 +20,5 @@ public:
 	void resetTimer();
 	bool checkIfItsSpeededUp();
 	void setSpeed(Speed varOfSpeed,Timer& timer);
-
 };
 
