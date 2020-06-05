@@ -2,6 +2,7 @@
 
 #include <list>
 #include "Tile.h"
+#include "Level.h"
 
 const int WIDTH = 10;
 const int HEIGHT = 20;

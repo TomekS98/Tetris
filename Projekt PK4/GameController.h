@@ -5,17 +5,21 @@
 #include "BlocksGenerator.h"
 #include "Scoreboard.h"
 #include "Timer.h"
-
+#include "GameMusic.h"
+#include "GameSounds.h"
+#include "TextPoppingUp.h"
+#include "Level.h"
 class GameController
 {
 	Block currentBlock;
 	PlayField playField;
 	BlocksGenerator blocksGenerator;
-	bool hasLostGame;
+	bool _hasLostGame;
+	bool _canEnterHere;
 public:
 	GameController();
 	GameController(BlocksGenerator blocksGenerator, PlayField playField);
-	void Tick(sf::Clock  &clock, Timer &Timer,sf::Event &e, sf::RenderWindow &w);
+	void Tick(sf::Clock  &clock, Timer &Timer, sf::Event &e, sf::RenderWindow &w, GameMusic & _gameMusic, GameSounds &_gameSounds, TextPoppingUp& _txtmsg, Level & _level,Scoreboard & _scoreboard);
 	Block GetCurrentBlock();
 	PlayField GetPlayField();
 	bool IsInGame();

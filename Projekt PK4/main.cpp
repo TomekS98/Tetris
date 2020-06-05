@@ -3,6 +3,8 @@
 #include "PlayField.h"
 #include "GameController.h"
 #include "Scoreboard.h"
+#include "GameMusic.h"
+#include "GameSounds.h"
 
 #include <iostream>
 #include <SFML/Audio.hpp>
@@ -17,7 +19,7 @@ int main()
 	Timer Timer;
 	sf::Clock clock;
 	sf::RenderWindow window;
-	sf::VideoMode VMode(WIDTH * TILES_PIXEL_COUNT+180, HEIGHT * TILES_PIXEL_COUNT, 32);
+	sf::VideoMode VMode(WIDTH * TILES_PIXEL_COUNT + 180, HEIGHT * TILES_PIXEL_COUNT+100, 32);
 	window.create(VMode, "Tetris", sf::Style::Close);
 
 	sf::Texture tilesTexture;
@@ -25,43 +27,56 @@ int main()
 	sf::Sprite tilesSprite = sf::Sprite(tilesTexture);
 	tilesSprite.setTextureRect(sf::IntRect(0, 0, TILES_PIXEL_COUNT, TILES_PIXEL_COUNT));
 	sf::Font _font;
+	sf::Texture background;
+	background.loadFromFile("images/tetrisbackground.png");
+	sf::Sprite s_background(background);
+
 	if (!_font.loadFromFile("fonts/font.ttf"))
 	{
 		return -1;
 	}
+	GameMusic _gameMusic;
+	_gameMusic.inGameMusic();
+	GameSounds _gameSounds;
+	TextPoppingUp _textmsg(_font);
+	Level _level(_font);
+	Scoreboard _scoreboard(_font);
+	
+	
+	sf::Text levelDisplayREPLACEMENT;
+	levelDisplayREPLACEMENT.setFont(_font);
+	levelDisplayREPLACEMENT.setString(_level.getlevelmsg());
+	levelDisplayREPLACEMENT.setCharacterSize(52);
+	levelDisplayREPLACEMENT.setFillColor(sf::Color::Black);
+	levelDisplayREPLACEMENT.setPosition(380, 185);
 
-	sf::Music music;
-	if (!music.openFromFile("music/tetris_music_piano.ogg")) {
-		return -1;
-	}
-	music.setVolume(50);
-	music.setLoop(true);
-	music.play();
+	sf::Text scoreboardDisplayREPLACEMENT;
+	scoreboardDisplayREPLACEMENT.setFont(_font);
+	scoreboardDisplayREPLACEMENT.setString(_scoreboard.getscoremsg());
+	scoreboardDisplayREPLACEMENT.setCharacterSize(52);
+	scoreboardDisplayREPLACEMENT.setFillColor(sf::Color::White);
+	scoreboardDisplayREPLACEMENT.setPosition(370, 65);
 
-	sf::Text textjakis;
-	/*
-	textjakis.setFont(_font);
-	textjakis.setString("69");
-	textjakis.setCharacterSize(64);
-	textjakis.setFillColor(sf::Color::Red);
-	textjakis.setPosition(350, 100);
-	*/
 	window.setFramerateLimit(15);
 
-	Scoreboard Scoreboard(_font);
+
 	sf::Event event;
 	GameController gameController(BlocksGenerator(0, 0), PlayField());
 
 	while (window.isOpen())
 	{
-	
-		//sf::Text text = Scoreboard.getScoreTxt();
-		//window.draw(text);
-		gameController.Tick(clock, Timer , event, window);
 		
+
+		
+		gameController.Tick(clock, Timer, event, window,_gameMusic,_gameSounds,_textmsg,_level,_scoreboard);
+
 		window.pollEvent(event);
 		window.clear(sf::Color::Black);
-		
+		window.draw(s_background);
+		levelDisplayREPLACEMENT.setString(_level.getlevelmsg());
+		scoreboardDisplayREPLACEMENT.setString(_scoreboard.getscoremsg());
+		window.draw(levelDisplayREPLACEMENT);
+		window.draw(scoreboardDisplayREPLACEMENT);
 		for (int i = 0; i < 4; i++)
 		{
 			Tile tile = gameController.GetCurrentBlock().GetTile(i);
@@ -80,7 +95,7 @@ int main()
 				window.draw(tilesSprite);
 			}
 		}
-		
+
 		window.display();
 	}
 
@@ -88,13 +103,13 @@ int main()
 }
 
 
-/*******************TO DO************************
-* ZAIMPLEMENTOWAC POZIOMY CO 5 ULOZONYCH LINIJEK*
-* NAPRAWIC WYSWIETLANIE SCORE I POZIOM			*
-* ZROBIC BACKGROUND W GIMPIE d-_-b				*
-* DODAC SOUNDS									*
-* DODAC GAMEOVER								*
-******************ZAAWANSOWANE*******************
-* MENU											*
-* HIGHHSCORES									*
-************************************************/
+/*******************TO DO****************************
+* X | ZAIMPLEMENTOWAC POZIOMY CO 3 ULOZONE LINIJEK  *
+* X | ZROBIC BACKGROUND W GIMPIE d-_-b				*
+* X | DODAC SOUNDS									*
+* X | DODAC GAMEOVER								*
+*********************ZAAWANSOWANE********************
+* O | NAPRAWIC WYSWIETLANIE SCORE I POZIOM			*
+* O | MENU											*
+* O | HIGHHSCORES									*
+****************************************************/

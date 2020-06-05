@@ -4,30 +4,40 @@
 
 GameController::GameController()
 {
-	hasLostGame = false;
+	_hasLostGame = false;
+	_canEnterHere = true;
 }
 
 GameController::GameController(BlocksGenerator blocksGenerator, PlayField playField)
 {
 	this->blocksGenerator = blocksGenerator;
 	this->playField = playField;
-	hasLostGame = false;
+	_hasLostGame = false;
 }
 
-void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::RenderWindow& w)
+void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::RenderWindow& w,GameMusic& _gameMusic,GameSounds &_gameSounds,TextPoppingUp& _txtmsg, Level & _level,Scoreboard & _scoreboard)
 {
 	float time = clock.getElapsedTime().asSeconds();
 	clock.restart();
 	timer.setTimer(time);
-
-	if (hasLostGame)
+	
+	if (_hasLostGame&& _canEnterHere)
 	{
+		//_txtmsg.setText("GAME OVER");
+		//_txtmsg.textDraw(w);
+		_gameMusic.musicStop();
+		_gameSounds.gameOverSound();
+		_canEnterHere = false;
 		return;
 	}
 
 	if (playField.GetCompleteRowY() != -1)
 	{
 		playField.RemoveRow(playField.GetCompleteRowY());
+		_gameSounds.oneLineSound();
+		_level.increaseNumberOfDestroyedRows();
+		_level.CheckIfItsTimeToIncreaseLevel(timer);
+		_scoreboard.updateScore(100,_level);
 	}
 
 	if (!currentBlock.CanMoveDown(playField))
@@ -41,7 +51,7 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 
 		if (!currentBlock.CanMoveDown(playField))
 		{
-			hasLostGame = true;
+			_hasLostGame = true;
 		}
 	}
 	
@@ -69,6 +79,14 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 				currentBlock.MoveHorizontally(Direction::Right);
 
 			}
+			else if (e.key.code == sf::Keyboard::P)
+			{
+				_gameMusic.volumeChangeOfTheMusic(VolumeChange::Higher);
+			}
+			else if (e.key.code == sf::Keyboard::O)
+			{
+				_gameMusic.volumeChangeOfTheMusic(VolumeChange::Lower);
+			}
 		}
 	}
 	
@@ -92,7 +110,7 @@ Block GameController::GetCurrentBlock()
 
 bool GameController::IsInGame()
 {
-	return !hasLostGame;
+	return !_hasLostGame;
 }
 
 PlayField GameController::GetPlayField()

@@ -1,5 +1,6 @@
 #include "PlayField.h"
 
+
 bool PlayField::IsPositionOccupied(int x, int y)
 {
 	return tiles[x][y].GetX() != -1 && tiles[x][y].GetY() != -1;
@@ -64,3 +65,5 @@ void PlayField::AddTile(Tile tile)
 
 	tiles[tile.GetX()][tile.GetY()] = tile;
 }
+
+
