@@ -16,5 +16,7 @@ public:
 	void updateScore(int score, Level level);
 	sf::Text getScoreTxt();
 	std::string getscoremsg();
+	int getScoreAsInt() { return stoi(_scoremsg); }
+	void resetScore() { score = 0; _scoremsg = std::to_string(score); _scoreTxt.setString(_scoremsg); }
 };
 

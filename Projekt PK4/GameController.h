@@ -9,6 +9,7 @@
 #include "GameSounds.h"
 #include "TextPoppingUp.h"
 #include "Level.h"
+#include "Top5Scores.h"
 class GameController
 {
 	Block currentBlock;
@@ -19,7 +20,7 @@ class GameController
 public:
 	GameController();
 	GameController(BlocksGenerator blocksGenerator, PlayField playField);
-	void Tick(sf::Clock  &clock, Timer &Timer, sf::Event &e, sf::RenderWindow &w, GameMusic & _gameMusic, GameSounds &_gameSounds, TextPoppingUp& _txtmsg, Level & _level,Scoreboard & _scoreboard);
+	void Tick(sf::Clock  &clock, Timer &Timer, sf::Event &e, sf::RenderWindow &w, GameMusic & _gameMusic, GameSounds &_gameSounds, TextPoppingUp& _txtmsg, Level & _level,Scoreboard & _scoreboard,Top5Scores& _top5,Menu&_menu);
 	Block GetCurrentBlock();
 	PlayField GetPlayField();
 	bool IsInGame();

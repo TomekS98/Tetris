@@ -15,7 +15,7 @@ GameController::GameController(BlocksGenerator blocksGenerator, PlayField playFi
 	_hasLostGame = false;
 }
 
-void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::RenderWindow& w,GameMusic& _gameMusic,GameSounds &_gameSounds,TextPoppingUp& _txtmsg, Level & _level,Scoreboard & _scoreboard)
+void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::RenderWindow& w,GameMusic& _gameMusic,GameSounds &_gameSounds,TextPoppingUp& _txtmsg, Level & _level,Scoreboard & _scoreboard, Top5Scores & _top5, Menu& _menu)
 {
 	float time = clock.getElapsedTime().asSeconds();
 	clock.restart();
@@ -27,6 +27,7 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 		//_txtmsg.textDraw(w);
 		_gameMusic.musicStop();
 		_gameSounds.gameOverSound();
+		_top5.updateTheScores(_scoreboard);
 		_canEnterHere = false;
 		return;
 	}
@@ -66,7 +67,6 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 			if (e.key.code == sf::Keyboard::Down && !timer.checkIfItsSpeededUp())
 			{
 				timer.setSpeed(Speed::Fast,timer);
-				//timer.setDelayCausedByKeyDown();
 
 			}
 			else if (e.key.code == sf::Keyboard::Left && currentBlock.CanMoveHorizontally(playField, Direction::Left))
@@ -87,6 +87,14 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 			{
 				_gameMusic.volumeChangeOfTheMusic(VolumeChange::Lower);
 			}
+			else if (e.key.code == sf::Keyboard::R)
+			{
+				_gameMusic.musicStop();
+				_gameMusic.changeTheStateOfPlayMusic(False);
+				_menu.changeTheStateOfEnter(True);
+				_menu.setChoicedItemIndex(2);
+				_scoreboard.resetScore();
+			}
 		}
 	}
 	
@@ -96,7 +104,6 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 		if (timer.checkIfItsSpeededUp())
 		{
 			timer.setSpeed(Speed::Regular, timer);
-			//timer.resetDelayAfterKeyDown();
 		}
 		currentBlock.MoveDown();
 		timer.resetTimer();

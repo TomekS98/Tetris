@@ -3,6 +3,7 @@
 GameMusic::GameMusic()
 {
 	_powerOfVolium = 50;
+	isBeingPlayed = false;
 }
 
 void GameMusic::inGameMusic() {
@@ -12,6 +13,19 @@ void GameMusic::inGameMusic() {
 	_music.setVolume(_powerOfVolium);
 	_music.setLoop(true);
 	_music.play();
+	changeTheStateOfPlayMusic(True);
+	whatMusicIsBeingPlayed = "Game";
+}
+
+void GameMusic::inMenuMusic() {
+	if (!_music.openFromFile(IN_MENU_MUSIC_FILEPATH)) {
+		return;
+	}
+	_music.setVolume(_powerOfVolium);
+	_music.setLoop(true);
+	_music.play();
+	changeTheStateOfPlayMusic(True);
+	whatMusicIsBeingPlayed = "Menu";
 }
 
 void GameMusic::volumeChangeOfTheMusic(VolumeChange varOfVolumeChange) 
@@ -36,6 +50,26 @@ void GameMusic::volumeChangeOfTheMusic(VolumeChange varOfVolumeChange)
 	}
 }
 
-void GameMusic::musicStop() {
+void GameMusic::musicStop()
+{
 	_music.stop();
+}
+
+void GameMusic::changeTheStateOfPlayMusic(Bollean state) 
+{
+	switch (state) {
+	case True:
+		isBeingPlayed = true;
+		break;
+	case False:
+		isBeingPlayed = false;
+		break;
+	default:
+		break;
+	}
+}
+
+bool GameMusic::getTheStateOfPlayMusic() 
+{
+	return isBeingPlayed;
 }
