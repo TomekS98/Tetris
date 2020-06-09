@@ -12,7 +12,7 @@
 #include "Top5Scores.h"
 class GameController
 {
-	Block currentBlock;
+	Block currentBlock[2];
 	PlayField playField;
 	BlocksGenerator blocksGenerator;
 	bool _hasLostGame;
@@ -20,9 +20,12 @@ class GameController
 public:
 	GameController();
 	GameController(BlocksGenerator blocksGenerator, PlayField playField);
-	void Tick(sf::Clock  &clock, Timer &Timer, sf::Event &e, sf::RenderWindow &w, GameMusic & _gameMusic, GameSounds &_gameSounds, TextPoppingUp& _txtmsg, Level & _level,Scoreboard & _scoreboard,Top5Scores& _top5,Menu&_menu);
+	void Tick(sf::Clock  &clock, Timer &Timer, sf::Event &e, sf::RenderWindow &w, GameMusic & _gameMusic, GameSounds &_gameSounds, TextPoppingUp& _txtmsg, Level & _level,Scoreboard & _scoreboard,Top5Scores& _top5,Menu&_menu,GameController & _gamecontroller);
 	Block GetCurrentBlock();
 	PlayField GetPlayField();
 	bool IsInGame();
+	void resetThePlayField();
+	void drawIncomingBlock(sf::RenderWindow & window);
+	Block GetIncomingBlock() { return currentBlock[1]; }
 };
 

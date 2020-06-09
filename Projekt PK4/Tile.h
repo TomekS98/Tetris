@@ -9,6 +9,7 @@ class Tile
 	Color color;
 public:
 	Tile();
+	~Tile() {}
 	Tile(int xPosition, int yPosition, Color color);
 	Color GetColor();
 	void Move(int dx, int dy);

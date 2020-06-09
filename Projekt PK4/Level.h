@@ -18,5 +18,6 @@ public:
 	int getNumberOfRowsDestroyed();
 	void CheckIfItsTimeToIncreaseLevel(Timer&_timer);
 	std::string getlevelmsg();
+	void resetLevel() { _level = 0; numberOfDestroyedRows = 0; _levelmsg = std::to_string(_level); _levelTxt.setString(_levelmsg); }
 };
 

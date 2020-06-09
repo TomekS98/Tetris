@@ -6,6 +6,7 @@ GameController::GameController()
 {
 	_hasLostGame = false;
 	_canEnterHere = true;
+	currentBlock[1] = blocksGenerator.GenerateBlock();
 }
 
 GameController::GameController(BlocksGenerator blocksGenerator, PlayField playField)
@@ -13,9 +14,15 @@ GameController::GameController(BlocksGenerator blocksGenerator, PlayField playFi
 	this->blocksGenerator = blocksGenerator;
 	this->playField = playField;
 	_hasLostGame = false;
+	_canEnterHere = true;
+}
+void GameController::resetThePlayField()
+{
+	PlayField p =PlayField();
+	this->playField = p;
 }
 
-void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::RenderWindow& w,GameMusic& _gameMusic,GameSounds &_gameSounds,TextPoppingUp& _txtmsg, Level & _level,Scoreboard & _scoreboard, Top5Scores & _top5, Menu& _menu)
+void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::RenderWindow& w,GameMusic& _gameMusic,GameSounds &_gameSounds,TextPoppingUp& _txtmsg, Level & _level,Scoreboard & _scoreboard, Top5Scores & _top5, Menu& _menu, GameController & _gamecontroller)
 {
 	float time = clock.getElapsedTime().asSeconds();
 	clock.restart();
@@ -39,18 +46,20 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 		_level.increaseNumberOfDestroyedRows();
 		_level.CheckIfItsTimeToIncreaseLevel(timer);
 		_scoreboard.updateScore(100,_level);
+		
 	}
 
-	if (!currentBlock.CanMoveDown(playField)&& _canEnterHere)
+	if (!currentBlock[0].CanMoveDown(playField)&& _canEnterHere)
 	{
 		for (int i = 0; i < 4; i++)
 		{
-			playField.AddTile(currentBlock.GetTile(i));
+			playField.AddTile(currentBlock[0].GetTile(i));
 		}
 
-		currentBlock = blocksGenerator.GenerateBlock();
+		currentBlock[0] = blocksGenerator.GenerateBlock();
+		currentBlock[1] = blocksGenerator.GenerateBlock();
 
-		if (!currentBlock.CanMoveDown(playField))
+		if (!currentBlock[0].CanMoveDown(playField))
 		{
 			_hasLostGame = true;
 		}
@@ -62,21 +71,21 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 		if (e.type == sf::Event::KeyPressed) {
 			if (e.key.code == sf::Keyboard::Up)
 			{
-				currentBlock.Rotate();
+				currentBlock[0].Rotate();
 			}
 			if (e.key.code == sf::Keyboard::Down && !timer.checkIfItsSpeededUp())
 			{
 				timer.setSpeed(Speed::Fast,timer);
 
 			}
-			else if (e.key.code == sf::Keyboard::Left && currentBlock.CanMoveHorizontally(playField, Direction::Left))
+			else if (e.key.code == sf::Keyboard::Left && currentBlock[0].CanMoveHorizontally(playField, Direction::Left))
 			{
-				currentBlock.MoveHorizontally(Direction::Left);
+				currentBlock[0].MoveHorizontally(Direction::Left);
 
 			}
-			else if (e.key.code == sf::Keyboard::Right && currentBlock.CanMoveHorizontally(playField, Direction::Right))
+			else if (e.key.code == sf::Keyboard::Right && currentBlock[0].CanMoveHorizontally(playField, Direction::Right))
 			{
-				currentBlock.MoveHorizontally(Direction::Right);
+				currentBlock[0].MoveHorizontally(Direction::Right);
 
 			}
 			else if (e.key.code == sf::Keyboard::P)
@@ -93,26 +102,33 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 				_gameMusic.changeTheStateOfPlayMusic(False);
 				_menu.changeTheStateOfEnter(True);
 				_menu.setChoicedItemIndex(2);
+				for (int i = 0; i < 20; i++) {
+					playField.RemoveRow(i);
+				}
 				_scoreboard.resetScore();
+				_level.resetLevel();
+				timer.resetDelay();
+				_hasLostGame = false;
+				_canEnterHere = true;
 			}
 		}
 	}
 	
 	
-	if (timer.getTimer()>timer.getDelay() && currentBlock.CanMoveDown(playField))
+	if (timer.getTimer()>timer.getDelay() && currentBlock[0].CanMoveDown(playField))
 	{
 		if (timer.checkIfItsSpeededUp())
 		{
 			timer.setSpeed(Speed::Regular, timer);
 		}
-		currentBlock.MoveDown();
+		currentBlock[0].MoveDown();
 		timer.resetTimer();
 	}
 }
 
 Block GameController::GetCurrentBlock()
 {
-	return currentBlock;
+	return currentBlock[0];
 }
 
 bool GameController::IsInGame()
@@ -120,7 +136,13 @@ bool GameController::IsInGame()
 	return !_hasLostGame;
 }
 
+
 PlayField GameController::GetPlayField()
 {
 	return playField;
+}
+
+void GameController::drawIncomingBlock(sf::RenderWindow & window)
+{
+
 }

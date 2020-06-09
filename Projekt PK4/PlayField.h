@@ -10,7 +10,6 @@ const int HEIGHT = 20;
 class PlayField
 {
 	Tile tiles[WIDTH][HEIGHT];
-	void RemoveTile(Tile tile);
 public:
 	bool IsPositionOccupied(int x, int y);
 	Tile GetTile(int tileX, int tileY);

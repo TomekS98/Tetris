@@ -116,7 +116,7 @@ int main()
 			{
 				_gameMusic.inGameMusic();
 			}
-			gameController.Tick(clock, Timer, event, window, _gameMusic, _gameSounds, _textmsg, _level, _scoreboard, _top5, _menu);
+			gameController.Tick(clock, Timer, event, window, _gameMusic, _gameSounds, _textmsg, _level, _scoreboard, _top5, _menu, gameController);
 
 			window.pollEvent(event);
 			window.clear(sf::Color::Black);
@@ -132,6 +132,14 @@ int main()
 				tilesSprite.setPosition(tile.GetX() * TILES_PIXEL_COUNT, tile.GetY() * TILES_PIXEL_COUNT);
 				window.draw(tilesSprite);
 			}
+			/*
+			for (int i = 0; i < 4; i++)
+			{
+				Tile tile = gameController.GetIncomingBlock().GetTile(i);
+				tilesSprite.setTextureRect(sf::IntRect(tile.GetColor() * COLOR_MULTIPLIER, 0, TILES_PIXEL_COUNT, TILES_PIXEL_COUNT));
+				tilesSprite.setPosition(400,500);
+				window.draw(tilesSprite);
+			}*/
 
 			for (int i = 0; i < WIDTH; i++)
 			{

@@ -20,5 +20,6 @@ public:
 	void resetTimer();
 	bool checkIfItsSpeededUp();
 	void setSpeed(Speed varOfSpeed,Timer& timer);
+	void resetDelay() { _delay = 0.5; }
 };
 
