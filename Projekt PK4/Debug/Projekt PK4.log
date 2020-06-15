@@ -1,2 +1,33 @@
-﻿  Block.cpp
-  Projekt PK4.vcxproj -> C:\Users\Admin\source\repos\Ten zadziala kurwa 123 hahahaahah xd\Debug\Projekt PK4.exe
+﻿  GameController.cpp
+  GameMusic.cpp
+c:\users\admin\source\repos\tetris\projekt pk4\gamemusic.cpp(13): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+c:\users\admin\source\repos\tetris\projekt pk4\gamemusic.cpp(24): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+c:\users\admin\source\repos\tetris\projekt pk4\gamemusic.cpp(39): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+c:\users\admin\source\repos\tetris\projekt pk4\gamemusic.cpp(46): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+  GameSounds.cpp
+  Menu.cpp
+c:\users\admin\source\repos\tetris\projekt pk4\menu.cpp(23): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+          with
+          [
+              T=float
+          ]
+c:\users\admin\source\repos\tetris\projekt pk4\menu.cpp(31): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+          with
+          [
+              T=float
+          ]
+c:\users\admin\source\repos\tetris\projekt pk4\menu.cpp(39): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+          with
+          [
+              T=float
+          ]
+  Top5Scores.cpp
+c:\users\admin\source\repos\tetris\projekt pk4\top5scores.cpp(14): warning C4244: "argument": konwersja z "int" do "T", możliwa utrata danych
+          with
+          [
+              T=float
+          ]
+  main.cpp
+c:\users\admin\source\repos\tetris\projekt pk4\main.cpp(16): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+  Generowanie kodu...
+  Projekt PK4.vcxproj -> C:\Users\Admin\source\repos\Tetris\Debug\Projekt PK4.exe
