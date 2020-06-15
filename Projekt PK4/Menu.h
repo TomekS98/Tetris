@@ -1,14 +1,16 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "Bollean.h"
-#define NUMBER_OF_CHOICES 3
+#include <list>
+#include "Defines.h"
+
 
 class Menu
 {
 	int selectedItemIndex;
 	int choicedItemIndex;
 	sf::Font font;
-	sf::Text menu[NUMBER_OF_CHOICES];
+	std::list<sf::Text> menu;
 	bool enterTheMenu;
 
 public:

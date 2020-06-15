@@ -136,25 +136,43 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlocksGenerator.cpp" />
     <ClCompile Include="GameController.cpp" />
+    <ClCompile Include="GameMusic.cpp" />
+    <ClCompile Include="GameSounds.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="PlayField.cpp" />
     <ClCompile Include="Scoreboard.cpp" />
+    <ClCompile Include="TextPoppingUp.cpp" />
+    <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Top5Scores.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlocksGenerator.h" />
+    <ClInclude Include="Bollean.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Defines.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="GameController.h" />
+    <ClInclude Include="GameMusic.h" />
+    <ClInclude Include="GameSounds.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="TextPoppingUp.h" />
+    <ClInclude Include="Textures.h" />
+    <ClInclude Include="Top5Scores.h" />
+    <ClInclude Include="VolumeChange.h" />
     <ClInclude Include="PlayField.h" />
     <ClInclude Include="Scoreboard.h" />
     <ClInclude Include="Speed.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Timer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

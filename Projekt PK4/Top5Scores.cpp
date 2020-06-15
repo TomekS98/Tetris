@@ -43,8 +43,8 @@ void Top5Scores::draw(sf::RenderWindow&window)
 void Top5Scores::updateTheScores(Scoreboard _actualScore)
 {
 	std::ofstream plik;
+	std::unique_ptr <int[]> tmpArrayOfScores(new int[NUMBER_OF_SCORES]);
 
-	int * tmpArrayOfScores = new int[NUMBER_OF_SCORES];
 	for (int i = 0; i < NUMBER_OF_SCORES; i++)
 	{
 		tmpArrayOfScores[i] = scores_int[i];
@@ -68,7 +68,6 @@ void Top5Scores::updateTheScores(Scoreboard _actualScore)
 			break;
 		}
 	}
-	delete[] tmpArrayOfScores;
 
 	for (int i = 0; i < NUMBER_OF_SCORES; i++)
 	{

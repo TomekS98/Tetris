@@ -3,6 +3,7 @@
 #include "Tile.h"
 #include "Direction.h"
 #include "PlayField.h"
+#include <list>
 
 
 class Block

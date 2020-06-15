@@ -3,8 +3,8 @@
 #include "Bollean.h"
 #include "Menu.h"
 #include <fstream>
+#include "Defines.h"
 
-#define NUMBER_OF_SCORES 5
 class Top5Scores
 {
 	sf::Font font;

@@ -12,7 +12,7 @@
 #include "Top5Scores.h"
 class GameController
 {
-	Block currentBlock[2];
+	Block currentBlock;
 	PlayField playField;
 	BlocksGenerator blocksGenerator;
 	bool _hasLostGame;
@@ -26,6 +26,5 @@ public:
 	bool IsInGame();
 	void resetThePlayField();
 	void drawIncomingBlock(sf::RenderWindow & window);
-	Block GetIncomingBlock() { return currentBlock[1]; }
 };
 

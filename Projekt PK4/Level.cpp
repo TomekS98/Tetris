@@ -2,14 +2,19 @@
 
 #include <string>
 
-Level::Level(sf::Font _font)
+Level::Level()
 {
-	_levelTxt.setFont(_font);
-	_levelTxt.setString("0");
+	if (!_fontTxt.loadFromFile("fonts/font.ttf"))
+	{
+		return;
+	}
+	sf::Color gray_color(211, 211, 211);
+	_levelTxt.setFont(_fontTxt);
+	_levelTxt.setString("1");
 	_levelTxt.setCharacterSize(64);
-	_levelTxt.setFillColor(sf::Color::White);
-	_levelTxt.setPosition(380, 200);
-	_level = 0;
+	_levelTxt.setFillColor(gray_color);
+	_levelTxt.setPosition(420, 185);
+	_level = 1;
 	numberOfDestroyedRows = 0;
 	_levelmsg = std::to_string(_level);
 }

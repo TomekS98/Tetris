@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Block" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAEAAAIAAAEAAAAAAAAAAAAEgAAAAgAQAAAAAAAAAA=</HashCode>
+      <FileName>Block.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BlocksGenerator" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAEAAAAAAAAAAAAEAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>BlocksGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameController" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgIABAAAAAAECAAEQAgEAAAEAAAAAAIAAAAQAA=</HashCode>
+      <FileName>GameController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Level" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARAAAAAAAASAAAAQAAEAAQAAAAAAACAZAAAAgAAAAEA=</HashCode>
+      <FileName>Level.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayField" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CQAAAAAAAAAAQAAAAgAAAAAAAgAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>PlayField.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scoreboard" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACCoAAAAAggAAAAIAAAIAACACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scoreboard.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tile" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAIAABAAAAAAAAAAAAAAAAACAYAAAACAAAQA=</HashCode>
+      <FileName>Tile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Timer" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABACEAAAgAJAAAAAAAAAAAAAQAAAAQAIEAAAkAAA=</HashCode>
+      <FileName>Timer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Color" Collapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAApAAAAAABAAAAAAAAAAAAAAAADAAAAA=</HashCode>
+      <FileName>Color.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Direction" Collapsed="true">
+    <Position X="2.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAA=</HashCode>
+      <FileName>Direction.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Speed" Collapsed="true">
+    <Position X="4" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Speed.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

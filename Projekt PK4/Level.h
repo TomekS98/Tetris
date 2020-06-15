@@ -6,10 +6,11 @@ class Level
 {
 	int _level;
 	sf::Text _levelTxt;
+	sf::Font _fontTxt;
 	int numberOfDestroyedRows;
 	std::string _levelmsg;
 public:
-	Level(sf::Font _font);
+	Level();
 	Level(int desiredLevel, sf::Font _font);
 	void increaseLevel(Timer & _timer);
 	void increaseNumberOfDestroyedRows();

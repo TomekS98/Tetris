@@ -1,7 +1,11 @@
 #include "TextPoppingUp.h"
-TextPoppingUp::TextPoppingUp(sf::Font font)
+TextPoppingUp::TextPoppingUp()
 {
-	_textmsg.setFont(font);
+	if (!_fontTxt.loadFromFile("fonts/font.ttf"))
+	{
+		return;
+	}
+	_textmsg.setFont(_fontTxt);
 	_textmsg.setString("0");
 	_textmsg.setCharacterSize(64);
 	_textmsg.setFillColor(sf::Color::White);

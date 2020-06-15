@@ -2,8 +2,7 @@
 #include <SFML/Audio.hpp>
 #include "VolumeChange.h"
 #include "Bollean.h"
-#define IN_GAME_MUSIC_FILEPATH "music/tetris_music_piano.ogg"
-#define IN_MENU_MUSIC_FILEPATH "music/tetris_menu_music.ogg"
+#include "Defines.h"
 
 class GameMusic
 {

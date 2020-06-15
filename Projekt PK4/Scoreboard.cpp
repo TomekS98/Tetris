@@ -1,13 +1,18 @@
 #include "Scoreboard.h"
 #include <string>
 
-Scoreboard::Scoreboard(sf::Font _font) 
+Scoreboard::Scoreboard() 
 {
-	_scoreTxt.setFont(_font);
+	if (!_fontTxt.loadFromFile("fonts/font.ttf"))
+	{
+		return;
+	}
+	sf::Color gray_color(211, 211, 211);
+	_scoreTxt.setFont(_fontTxt);
 	_scoreTxt.setString("0");
 	_scoreTxt.setCharacterSize(64);
-	_scoreTxt.setFillColor(sf::Color::White);
-	_scoreTxt.setPosition(350, 100);
+	_scoreTxt.setFillColor(gray_color);
+	_scoreTxt.setPosition(370, 65);
 	score = 0;
 	_scoremsg = std::to_string(score);
  }

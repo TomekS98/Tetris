@@ -6,7 +6,6 @@ GameController::GameController()
 {
 	_hasLostGame = false;
 	_canEnterHere = true;
-	currentBlock[1] = blocksGenerator.GenerateBlock();
 }
 
 GameController::GameController(BlocksGenerator blocksGenerator, PlayField playField)
@@ -49,17 +48,16 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 		
 	}
 
-	if (!currentBlock[0].CanMoveDown(playField)&& _canEnterHere)
+	if (!currentBlock.CanMoveDown(playField)&& _canEnterHere)
 	{
 		for (int i = 0; i < 4; i++)
 		{
-			playField.AddTile(currentBlock[0].GetTile(i));
+			playField.AddTile(currentBlock.GetTile(i));
 		}
 
-		currentBlock[0] = blocksGenerator.GenerateBlock();
-		currentBlock[1] = blocksGenerator.GenerateBlock();
+		currentBlock = blocksGenerator.GenerateBlock();
 
-		if (!currentBlock[0].CanMoveDown(playField))
+		if (!currentBlock.CanMoveDown(playField))
 		{
 			_hasLostGame = true;
 		}
@@ -71,21 +69,21 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 		if (e.type == sf::Event::KeyPressed) {
 			if (e.key.code == sf::Keyboard::Up)
 			{
-				currentBlock[0].Rotate();
+				currentBlock.Rotate();
 			}
 			if (e.key.code == sf::Keyboard::Down && !timer.checkIfItsSpeededUp())
 			{
 				timer.setSpeed(Speed::Fast,timer);
 
 			}
-			else if (e.key.code == sf::Keyboard::Left && currentBlock[0].CanMoveHorizontally(playField, Direction::Left))
+			else if (e.key.code == sf::Keyboard::Left && currentBlock.CanMoveHorizontally(playField, Direction::Left))
 			{
-				currentBlock[0].MoveHorizontally(Direction::Left);
+				currentBlock.MoveHorizontally(Direction::Left);
 
 			}
-			else if (e.key.code == sf::Keyboard::Right && currentBlock[0].CanMoveHorizontally(playField, Direction::Right))
+			else if (e.key.code == sf::Keyboard::Right && currentBlock.CanMoveHorizontally(playField, Direction::Right))
 			{
-				currentBlock[0].MoveHorizontally(Direction::Right);
+				currentBlock.MoveHorizontally(Direction::Right);
 
 			}
 			else if (e.key.code == sf::Keyboard::P)
@@ -115,20 +113,20 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 	}
 	
 	
-	if (timer.getTimer()>timer.getDelay() && currentBlock[0].CanMoveDown(playField))
+	if (timer.getTimer()>timer.getDelay() && currentBlock.CanMoveDown(playField))
 	{
 		if (timer.checkIfItsSpeededUp())
 		{
 			timer.setSpeed(Speed::Regular, timer);
 		}
-		currentBlock[0].MoveDown();
+		currentBlock.MoveDown();
 		timer.resetTimer();
 	}
 }
 
 Block GameController::GetCurrentBlock()
 {
-	return currentBlock[0];
+	return currentBlock;
 }
 
 bool GameController::IsInGame()
@@ -142,7 +140,3 @@ PlayField GameController::GetPlayField()
 	return playField;
 }
 
-void GameController::drawIncomingBlock(sf::RenderWindow & window)
-{
-
-}

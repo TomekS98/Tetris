@@ -32,7 +32,7 @@ bool Block::CanMoveDown(PlayField playField)
 
 void Block::MoveDown()
 {
-	for (int i = 0; i < 4; i++)
+	for (int i = 0 ; i < 4; i++)
 	{
 		tiles[i].Move(0, 1);
 	}
@@ -110,7 +110,7 @@ void Block::MoveHorizontally(Direction moveDirection)
 	switch (moveDirection)
 	{
 	case Direction::Left:
-		for (int i = 0; i < 4; i++)
+		for (int i = 0 ; i< 4; i++)
 		{
 			tiles[i].Move(-1, 0);
 		}

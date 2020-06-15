@@ -1,6 +1,7 @@
 #include "Menu.h"
 
 
+
 Menu::Menu(float width, float height)
 {
 	if (!font.loadFromFile("fonts/font.ttf"))
@@ -8,54 +9,74 @@ Menu::Menu(float width, float height)
 		return;
 	}
 
-	menu[0].setFont(font);
-	menu[0].setFillColor(sf::Color::Red);
-	menu[0].setString("Play");
-	menu[0].setCharacterSize(124);
-	menu[0].setPosition(sf::Vector2f(width / 5+82, height / (NUMBER_OF_CHOICES + 1) * 0.5));
+	for (int i = 0; i < NUMBER_OF_CHOICES_IN_MENU; i++)
+	{
+		menu.push_back(sf::Text());
+	}
 
-	menu[1].setFont(font);
-	menu[1].setFillColor(sf::Color::White);
-	menu[1].setString("Highscores");
-	menu[1].setCharacterSize(124);
-	menu[1].setPosition(sf::Vector2f(width / 5-25, height / (NUMBER_OF_CHOICES + 1) * 1.5));
+	std::list<sf::Text>::iterator it = menu.begin();
 
-	menu[2].setFont(font);
-	menu[2].setFillColor(sf::Color::White);
-	menu[2].setString("Exit");
-	menu[2].setCharacterSize(124);
-	menu[2].setPosition(sf::Vector2f(width / 5+82, height / (NUMBER_OF_CHOICES + 1) * 2.5));
+	it->setFont(font);
+	it->setFillColor(sf::Color::Red);
+	it->setString("Play");
+	it->setCharacterSize(124);
+	it->setPosition(sf::Vector2f(width / 5+82, height / (NUMBER_OF_CHOICES_IN_MENU + 1) * 0.5));
+
+	it = std::next(it, 1);
+
+	it->setFont(font);
+	it->setFillColor(sf::Color::White);
+	it->setString("Highscores");
+	it->setCharacterSize(124);
+	it->setPosition(sf::Vector2f(width / 5-25, height / (NUMBER_OF_CHOICES_IN_MENU + 1) * 1.5));
+
+	it = std::next(it, 1);
+
+	it->setFont(font);
+	it->setFillColor(sf::Color::White);
+	it->setString("Exit");
+	it->setCharacterSize(124);
+	it->setPosition(sf::Vector2f(width / 5+82, height / (NUMBER_OF_CHOICES_IN_MENU + 1) * 2.5));
 
 	selectedItemIndex = 0;
+	choicedItemIndex = 2;
 	enterTheMenu = true;
 }
 
 
 void Menu::draw(sf::RenderWindow &window)
 {
-	for (int i = 0; i < NUMBER_OF_CHOICES; i++)
+	std::list<sf::Text>::iterator it = menu.begin();
+
+	for (; it != menu.end(); it++)
 	{
-		window.draw(menu[i]);
+		window.draw(*it);
 	}
 }
 
 void Menu::MoveUp()
 {
+	std::list<sf::Text>::iterator it = std::next(menu.begin(), selectedItemIndex);
+
 	if (selectedItemIndex - 1 >= 0)
 	{
-		menu[selectedItemIndex].setFillColor(sf::Color::White);
+		it->setFillColor(sf::Color::White);
 		selectedItemIndex--;
-		menu[selectedItemIndex].setFillColor(sf::Color::Red);
+		it = std::prev(it, 1);
+		it->setFillColor(sf::Color::Red);
 	}
 }
 
 void Menu::MoveDown()
 {
-	if (selectedItemIndex + 1 < NUMBER_OF_CHOICES)
+	std::list<sf::Text>::iterator it = std::next(menu.begin(), selectedItemIndex);
+
+	if (selectedItemIndex + 1 < NUMBER_OF_CHOICES_IN_MENU)
 	{
-		menu[selectedItemIndex].setFillColor(sf::Color::White);
+		it->setFillColor(sf::Color::White);
 		selectedItemIndex++;
-		menu[selectedItemIndex].setFillColor(sf::Color::Red);
+		it = std::next(it, 1);
+		it->setFillColor(sf::Color::Red);
 	}
 }
 int Menu::GetPressedItem()
