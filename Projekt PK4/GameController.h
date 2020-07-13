@@ -15,16 +15,22 @@ class GameController
 	Block currentBlock;
 	PlayField playField;
 	BlocksGenerator blocksGenerator;
+	Timer timerr;
+	GameSounds gameSounds;
+	Scoreboard scoreboardd;
+	sf::Clock clockk;
 	bool _hasLostGame;
 	bool _canEnterHere;
 public:
-	GameController();
+	GameController() {}
 	GameController(BlocksGenerator blocksGenerator, PlayField playField);
-	void Tick(sf::Clock  &clock, Timer &Timer, sf::Event &e, sf::RenderWindow &w, GameMusic & _gameMusic, GameSounds &_gameSounds, TextPoppingUp& _txtmsg, Level & _level,Scoreboard & _scoreboard,Top5Scores& _top5,Menu&_menu,GameController & _gamecontroller);
+	void Tick(sf::RenderWindow * w, GameMusic & _gameMusic ,Top5Scores& _top5,Menu&_menu);
 	Block GetCurrentBlock();
 	PlayField GetPlayField();
 	bool IsInGame();
 	void resetThePlayField();
-	void drawIncomingBlock(sf::RenderWindow & window);
+	Timer & getTimer() { return timerr; }
+	GameSounds & getGameSound() { return gameSounds; }
+	Scoreboard & getScoreboard() { return scoreboardd; }
 };
 

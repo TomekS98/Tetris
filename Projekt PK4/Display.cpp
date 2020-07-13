@@ -1,40 +1,77 @@
 #include "Display.h"
 
-Display::Display(PlayField playField)
+Display::Display()
 {
-	this->playField = playField;
-	sf::VideoMode VMode(480, 720, 32);
-	window.create(VMode, "tetris", sf::Style::Close);
-	sf::Texture tilesTexture;
-	tilesTexture.loadFromFile("images/tiles.png");
-	tilesSprite = sf::Sprite(tilesTexture);
-	tilesSprite.setTextureRect(sf::IntRect(0, 0, TILES_PIXEL_COUNT, TILES_PIXEL_COUNT));
+	sf::VideoMode VMode(WIDTH_WINDOW, HEIGHT_WINDOW, 32);
+	window.create(VMode, NAME_OF_GAME, sf::Style::Close);
+	window.setFramerateLimit(15);
+}
+Display::Display(Textures tab[],  GameController &gameController) {
+	sf::VideoMode VMode(WIDTH_WINDOW, HEIGHT_WINDOW, 32);
+	window.create(VMode, NAME_OF_GAME, sf::Style::Close);
+	window.setFramerateLimit(15);
+	for (int i = 0; i < NUMBER_OF_TEXTURES; i++) {
+		allTextures[i] = tab[i];
+	}
+	_gamecontroller = gameController;
+}
+bool Display::checkIfWindowIsOpen()
+{
+	return window.isOpen();
 }
 
-void Display::DisplayGame()
+void Display::displayMenu ()
 {
+	window.clear();
+	MENU_BACKGROUND_TEXTURE.Draw(window);
+	this->getMenu().draw(window);
+	this->getMenu().MenuController(window);
+	window.display();
+}
+
+sf::RenderWindow * Display::getWindow()
+{
+	return &window;
+}
+
+void Display::displayGame()
+{
+	sf::Event e;
+	_gamecontroller.Tick(this->getWindow(),gamemusicc, _top5, menu);
+	window.pollEvent(e);
 	window.clear(sf::Color::Black);
+	BACKGROUND_TEXTURE.Draw(window);
+	_gamecontroller.getScoreboard().getLevel().levelDraw(window);
+	_gamecontroller.getScoreboard().Draw(window);
+	for (int i = 0; i < 4; i++)
+	{
+		Tile tile = _gamecontroller.GetCurrentBlock().GetTile(i);
+		TILES_TEXTURE.setTextureRectangle(tile.GetColor() * COLOR_MULTIPLIER, 0, TILES_PIXEL_COUNT, TILES_PIXEL_COUNT);
+		TILES_TEXTURE.setPositionOfSprite(tile.GetX() * TILES_PIXEL_COUNT, tile.GetY() * TILES_PIXEL_COUNT);
+		TILES_TEXTURE.Draw(window);
+	}
 
 	for (int i = 0; i < WIDTH; i++)
 	{
 		for (int j = 0; j < HEIGHT; j++)
 		{
-			if (!playField.IsPositionOccupied(i, j))
-			{
-				continue;
-			}
-	
-			Tile tile = playField.GetTile(i, j);
-			tilesSprite.setTextureRect(sf::IntRect(tile.GetColor() * 32, 0, TILES_PIXEL_COUNT, TILES_PIXEL_COUNT));
-			tilesSprite.setPosition(tile.GetX() * TILES_PIXEL_COUNT, tile.GetY() * TILES_PIXEL_COUNT);
-			window.draw(tilesSprite);
+			Tile tile = _gamecontroller.GetPlayField().GetTile(i, j);
+			TILES_TEXTURE.setTextureRectangle(tile.GetColor() * COLOR_MULTIPLIER, 0, TILES_PIXEL_COUNT, TILES_PIXEL_COUNT);
+			TILES_TEXTURE.setPositionOfSprite(tile.GetX() * TILES_PIXEL_COUNT, tile.GetY() * TILES_PIXEL_COUNT);
+			TILES_TEXTURE.Draw(window);
 		}
 	}
-
+	FRAME_POZIOM_TEXTURE.Draw(window);
+	FRAME_PION_TEXTURE.Draw(window);
 	window.display();
 }
 
-bool Display::CanDisplay()
+void Display::displayScores()
 {
-	return window.isOpen();
+	window.clear();
+	TOP5_BACKGROUND_TEXTURE.Draw(window);
+	this->getTop5Scores().changeTheStateOfDisplayHigscores(Bollean::True);
+	this->getTop5Scores().scoresWindowController(window, this->getMenu());
+	this->getTop5Scores().draw(window);
+	window.display();
 }

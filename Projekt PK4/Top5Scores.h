@@ -13,7 +13,7 @@ class Top5Scores
 	bool executeDisplayOfHighscore;
 
 public:
-	Top5Scores(float width, float height);
+	Top5Scores();
 	void draw(sf::RenderWindow&window);
 	void updateTheScores(Scoreboard _actualScore);
 	void scoresWindowController(sf::RenderWindow &window, Menu & _menu);

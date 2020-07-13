@@ -2,9 +2,9 @@
 
 
 
-Menu::Menu(float width, float height)
+Menu::Menu()
 {
-	if (!font.loadFromFile("fonts/font.ttf"))
+	if (!font.loadFromFile(FONT_PATH1))
 	{
 		return;
 	}
@@ -13,14 +13,13 @@ Menu::Menu(float width, float height)
 	{
 		menu.push_back(sf::Text());
 	}
-
 	std::list<sf::Text>::iterator it = menu.begin();
 
 	it->setFont(font);
 	it->setFillColor(sf::Color::Red);
 	it->setString("Play");
 	it->setCharacterSize(124);
-	it->setPosition(sf::Vector2f(width / 5+82, height / (NUMBER_OF_CHOICES_IN_MENU + 1) * 0.5));
+	it->setPosition(sf::Vector2f(WIDTH1 / 5+82, HEIGHT1 / (NUMBER_OF_CHOICES_IN_MENU + 1) * 0.5));
 
 	it = std::next(it, 1);
 
@@ -28,7 +27,7 @@ Menu::Menu(float width, float height)
 	it->setFillColor(sf::Color::White);
 	it->setString("Highscores");
 	it->setCharacterSize(124);
-	it->setPosition(sf::Vector2f(width / 5-25, height / (NUMBER_OF_CHOICES_IN_MENU + 1) * 1.5));
+	it->setPosition(sf::Vector2f(WIDTH1 / 5-25, HEIGHT1 / (NUMBER_OF_CHOICES_IN_MENU + 1) * 1.5));
 
 	it = std::next(it, 1);
 
@@ -36,11 +35,12 @@ Menu::Menu(float width, float height)
 	it->setFillColor(sf::Color::White);
 	it->setString("Exit");
 	it->setCharacterSize(124);
-	it->setPosition(sf::Vector2f(width / 5+82, height / (NUMBER_OF_CHOICES_IN_MENU + 1) * 2.5));
+	it->setPosition(sf::Vector2f(WIDTH1 / 5+82, HEIGHT1 / (NUMBER_OF_CHOICES_IN_MENU + 1) * 2.5));
 
 	selectedItemIndex = 0;
 	choicedItemIndex = 2;
 	enterTheMenu = true;
+
 }
 
 

@@ -13,9 +13,12 @@
 #define NUMBER_OF_CHOICES_IN_MENU 3
 //top5scores
 #define NUMBER_OF_SCORES 5
+#define TOP5SCORES_PATH "Top5_highscores/scores.txt"
 //tiles
 const int TILES_PIXEL_COUNT = 32;
 const int COLOR_MULTIPLIER = 32;
+#define HEIGHT1 740
+#define WIDTH1 500
 //textures
 #define TILES_PATH "images/tiles.png"
 #define BACKGROUND_PATH "images/tetrisbackground.png"
@@ -27,3 +30,15 @@ const int COLOR_MULTIPLIER = 32;
 #define WIDTH_WINDOW 500
 #define HEIGHT_WINDOW 740
 #define NAME_OF_GAME "Tetris"
+//textures
+#define NUMBER_OF_TEXTURES 6
+#define TILES_TEXTURE allTextures[0]
+#define BACKGROUND_TEXTURE allTextures[1]
+#define FRAME_PION_TEXTURE allTextures[2]
+#define FRAME_POZIOM_TEXTURE allTextures[3]
+#define MENU_BACKGROUND_TEXTURE allTextures[4]
+#define TOP5_BACKGROUND_TEXTURE allTextures[5]
+//font
+#define FONT_PATH1 "fonts/font.ttf"
+//gameplay
+#define NUMBER_OF_DESTROYED_LINES_REQUIRED_TO_LEVEL_UP 3

@@ -2,12 +2,6 @@
 #include "GameController.h"
 
 
-GameController::GameController()
-{
-	_hasLostGame = false;
-	_canEnterHere = true;
-}
-
 GameController::GameController(BlocksGenerator blocksGenerator, PlayField playField)
 {
 	this->blocksGenerator = blocksGenerator;
@@ -21,19 +15,18 @@ void GameController::resetThePlayField()
 	this->playField = p;
 }
 
-void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::RenderWindow& w,GameMusic& _gameMusic,GameSounds &_gameSounds,TextPoppingUp& _txtmsg, Level & _level,Scoreboard & _scoreboard, Top5Scores & _top5, Menu& _menu, GameController & _gamecontroller)
+void GameController::Tick(sf::RenderWindow * w, GameMusic& _gameMusic, Top5Scores & _top5, Menu& _menu)
 {
-	float time = clock.getElapsedTime().asSeconds();
-	clock.restart();
-	timer.setTimer(time);
+	sf::Event e;
+	float time = clockk.getElapsedTime().asSeconds();
+	clockk.restart();
+	this->getTimer().setTimer(time);
 	
 	if (_hasLostGame&& _canEnterHere)
 	{
-		//_txtmsg.setText("GAME OVER");
-		//_txtmsg.textDraw(w);
 		_gameMusic.musicStop();
-		_gameSounds.gameOverSound();
-		_top5.updateTheScores(_scoreboard);
+		this->getGameSound().gameOverSound();
+		_top5.updateTheScores(this->getScoreboard());
 		_canEnterHere = false;
 		return;
 	}
@@ -41,10 +34,13 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 	if (playField.GetCompleteRowY() != -1)
 	{
 		playField.RemoveRow(playField.GetCompleteRowY());
-		_gameSounds.oneLineSound();
-		_level.increaseNumberOfDestroyedRows();
-		_level.CheckIfItsTimeToIncreaseLevel(timer);
-		_scoreboard.updateScore(100,_level);
+		this->getGameSound().oneLineSound();
+		this->getScoreboard().getLevel().increaseNumberOfDestroyedRows();
+		if (this->getScoreboard().getLevel().CheckIfItsTimeToIncreaseLevel(this->getTimer()))
+		{
+			this->getGameSound().levelUpSound();
+		}
+		this->getScoreboard().updateScore(100);
 		
 	}
 
@@ -62,18 +58,18 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 			_hasLostGame = true;
 		}
 	}
-	
-	while (w.pollEvent(e)) {
+
+	while (w->pollEvent(e)) {
 		if (e.type == sf::Event::Closed)
-			w.close();
+			w->close();
 		if (e.type == sf::Event::KeyPressed) {
 			if (e.key.code == sf::Keyboard::Up)
 			{
 				currentBlock.Rotate();
 			}
-			if (e.key.code == sf::Keyboard::Down && !timer.checkIfItsSpeededUp())
+			if (e.key.code == sf::Keyboard::Down && !this->getTimer().checkIfItsSpeededUp())
 			{
-				timer.setSpeed(Speed::Fast,timer);
+				this->getTimer().setSpeed(Speed::Fast, this->getTimer());
 
 			}
 			else if (e.key.code == sf::Keyboard::Left && currentBlock.CanMoveHorizontally(playField, Direction::Left))
@@ -103,9 +99,9 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 				for (int i = 0; i < 20; i++) {
 					playField.RemoveRow(i);
 				}
-				_scoreboard.resetScore();
-				_level.resetLevel();
-				timer.resetDelay();
+				this->getScoreboard().resetScore();
+				this->getScoreboard().getLevel().resetLevel();
+				this->getTimer().resetDelay();
 				_hasLostGame = false;
 				_canEnterHere = true;
 			}
@@ -113,14 +109,14 @@ void GameController::Tick(sf::Clock &clock,Timer &timer, sf::Event &e, sf::Rende
 	}
 	
 	
-	if (timer.getTimer()>timer.getDelay() && currentBlock.CanMoveDown(playField))
+	if (this->getTimer().getTimer()> this->getTimer().getDelay() && currentBlock.CanMoveDown(playField))
 	{
-		if (timer.checkIfItsSpeededUp())
+		if (this->getTimer().checkIfItsSpeededUp())
 		{
-			timer.setSpeed(Speed::Regular, timer);
+			this->getTimer().setSpeed(Speed::Regular, this->getTimer());
 		}
 		currentBlock.MoveDown();
-		timer.resetTimer();
+		this->getTimer().resetTimer();
 	}
 }
 

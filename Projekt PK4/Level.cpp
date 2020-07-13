@@ -4,7 +4,7 @@
 
 Level::Level()
 {
-	if (!_fontTxt.loadFromFile("fonts/font.ttf"))
+	if (!_fontTxt.loadFromFile(FONT_PATH1))
 	{
 		return;
 	}
@@ -16,7 +16,6 @@ Level::Level()
 	_levelTxt.setPosition(420, 185);
 	_level = 1;
 	numberOfDestroyedRows = 0;
-	_levelmsg = std::to_string(_level);
 }
 Level::Level(int desiredLevel, sf::Font _font)
 {
@@ -30,12 +29,12 @@ Level::Level(int desiredLevel, sf::Font _font)
 void Level::increaseLevel(Timer & _timer)
 {
 	_level++;
-	_levelmsg = std::to_string(_level);
+	_levelTxt.setString(std::to_string(_level));
 	_timer.setDelayCausedByLevel();
 }
 void Level::increaseNumberOfDestroyedRows() 
 {
-	numberOfDestroyedRows++;
+	this->numberOfDestroyedRows++;
 }
 
 void Level::levelDraw(sf::RenderWindow &w)
@@ -44,20 +43,19 @@ void Level::levelDraw(sf::RenderWindow &w)
 }
 
 int Level::getLevel() {
-	return _level;
+	return this->_level;
 }
 
 int Level::getNumberOfRowsDestroyed() {
 	return numberOfDestroyedRows;
 }
-void Level::CheckIfItsTimeToIncreaseLevel(Timer & _timer)
+bool Level::CheckIfItsTimeToIncreaseLevel(Timer & _timer)
 {
-	if (this->getLevel() != (this->getNumberOfRowsDestroyed() /3))
+	if (this->getLevel()-1 != (this->getNumberOfRowsDestroyed() / NUMBER_OF_DESTROYED_LINES_REQUIRED_TO_LEVEL_UP))
 	{
 		this->increaseLevel(_timer);
+		return true;
 	}
+	return false;
 }
 
-std::string Level::getlevelmsg() {
-	return _levelmsg;
-}

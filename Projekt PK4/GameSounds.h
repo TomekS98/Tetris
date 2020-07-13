@@ -11,7 +11,6 @@ class GameSounds
 public:
 	GameSounds();
 	void oneLineSound();
-	void fourLineSound();
 	void gameOverSound();
 	void levelUpSound();
 	void wowSound();

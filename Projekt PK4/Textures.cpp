@@ -1,5 +1,9 @@
+
 #include "Textures.h"
 
+Textures::Textures()
+{
+}
 Textures::Textures(const char *_filePath)
 {
 	if (!textureBase.loadFromFile(_filePath))
@@ -26,3 +30,4 @@ void Textures::Draw(sf::RenderWindow &w)
 {
 	w.draw(spriteBase);
 }
+

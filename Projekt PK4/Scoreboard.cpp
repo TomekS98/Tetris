@@ -1,9 +1,9 @@
 #include "Scoreboard.h"
 #include <string>
 
-Scoreboard::Scoreboard() 
+Scoreboard::Scoreboard()
 {
-	if (!_fontTxt.loadFromFile("fonts/font.ttf"))
+	if (!_fontTxt.loadFromFile(FONT_PATH1))
 	{
 		return;
 	}
@@ -14,7 +14,6 @@ Scoreboard::Scoreboard()
 	_scoreTxt.setFillColor(gray_color);
 	_scoreTxt.setPosition(370, 65);
 	score = 0;
-	_scoremsg = std::to_string(score);
  }
 
 void Scoreboard::Draw(sf::RenderWindow &w)
@@ -22,18 +21,14 @@ void Scoreboard::Draw(sf::RenderWindow &w)
 	w.draw(_scoreTxt);
 }
 
-void Scoreboard::updateScore(int _score, Level level)
+void Scoreboard::updateScore(int _score)
 {
-	int multiplierOfScore=level.getLevel()+1;
+	int multiplierOfScore=this->getLevel().getLevel() +1;
 	score += multiplierOfScore*_score*0.11;
 	_scoreTxt.setString(std::to_string(score));
-	_scoremsg = std::to_string(score);
 }
 
 sf::Text Scoreboard::getScoreTxt() {
 	return _scoreTxt;
 }
 
-std::string Scoreboard::getscoremsg() {
-	return _scoremsg;
-}

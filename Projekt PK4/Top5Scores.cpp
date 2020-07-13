@@ -1,8 +1,8 @@
 #include "Top5Scores.h"
 
-Top5Scores::Top5Scores(float width, float height)
+Top5Scores::Top5Scores()
 {
-	if (!font.loadFromFile("fonts/font.ttf"))
+	if (!font.loadFromFile(FONT_PATH1))
 	{
 		return;
 	}
@@ -11,10 +11,10 @@ Top5Scores::Top5Scores(float width, float height)
 		scores[i].setFont(font);
 		scores[i].setFillColor(sf::Color::Blue);
 		scores[i].setCharacterSize(64);
-		scores[i].setPosition(sf::Vector2f(width / 3, 120 * (i+1)));
+		scores[i].setPosition(sf::Vector2f(WIDTH1 / 3, 120 * (i+1)));
 	}
 	std::ifstream plik;
-	plik.open("Top5_highscores/scores.txt");
+	plik.open(TOP5SCORES_PATH);
 	if (!plik.good()) {
 		return;
 	}
@@ -49,7 +49,7 @@ void Top5Scores::updateTheScores(Scoreboard _actualScore)
 	{
 		tmpArrayOfScores[i] = scores_int[i];
 	}
-	plik.open("Top5_highscores/scores.txt");
+	plik.open(TOP5SCORES_PATH);
 	if(!plik.good())
 	{
 		return;

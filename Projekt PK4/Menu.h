@@ -3,18 +3,20 @@
 #include "Bollean.h"
 #include <list>
 #include "Defines.h"
+#include "GameMusic.h"
 
 
 class Menu
 {
-	int selectedItemIndex;
-	int choicedItemIndex;
+	
 	sf::Font font;
 	std::list<sf::Text> menu;
-	bool enterTheMenu;
+	bool enterTheMenu; 
+	int selectedItemIndex;
+	int choicedItemIndex;
 
 public:
-	Menu(float width, float height);
+	Menu();
 	void draw(sf::RenderWindow &window);
 	void MoveUp();
 	void MoveDown();

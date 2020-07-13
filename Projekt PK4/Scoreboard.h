@@ -9,14 +9,14 @@ class Scoreboard
 	int score;
 	sf::Font _fontTxt;
 	sf::Text _scoreTxt;
-	std::string _scoremsg;
+	Level level;
 public:
 	Scoreboard();
 	void Draw(sf::RenderWindow &w);
-	void updateScore(int score, Level level);
+	void updateScore(int score);
 	sf::Text getScoreTxt();
-	std::string getscoremsg();
-	int getScoreAsInt() { return stoi(_scoremsg); }
-	void resetScore() { score = 0; _scoremsg = std::to_string(score); _scoreTxt.setString(_scoremsg); }
+	void resetScore() { score = 0; _scoreTxt.setString(std::to_string(score)); }
+	int getScoreAsInt() { return score; }
+	Level & getLevel() { return level;  }
 };
 
